@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Grafo de Tuxtla</title>
+</head>
+<body>
+    <div id="principal">
+    <header>
+        <div id="head"> <h1>Ubicaciones de Tuxtla</h1></div>
+    </header>
+    <main>
+        <section>
+            <h2>Añadir ubicación</h2>
+            <label for="numVertices">Nombre del vértice:</label>
+            <input type="text" id="numVertices" placeholder="Nombre del lugar">
+            <button id="addVertice">Agregar Vértice</button>
+        </section>
+
+        <section>
+            <h2>Agregar Arista</h2>
+            <label for="vertice1">Vértice 1:</label>
+            <input type="text" id="vertice1" placeholder="Lugar de inicio">
+            <label for="vertice2">Vértice 2:</label>
+            <input type="text" id="vertice2" placeholder="Lugar de destino">
+            <label for="pesoArista">Peso de la arista (KM):</label>
+            <input type="number" id="pesoArista" placeholder="Kilómetros">
+            <button id="addArista">Agregar Arista</button>
+        </section>
+
+        <section>
+            <h2>Imprimir Grafo</h2>
+            <button id="botonImprimir">Imprimir Grafo</button>
+            <div id="imprimirGrafo"></div>
+        </section>
+
+        <section>
+            <h2>DFS - Recorrido en Profundidad</h2>
+            <label for="dfsInicio">Vértice de inicio:</label>
+            <input type="text" id="dfsInicio" placeholder="Lugar de inicio">
+            <button id="iniciarDFS">Iniciar DFS</button>
+            <div id="resultadoDFS"></div>
+        </section>
+
+        <section>
+            <h2>BFS - Recorrido en Anchura</h2>
+            <label for="bfsInicio">Vértice de inicio:</label>
+            <input type="text" id="bfsInicio" placeholder="Lugar de inicio">
+            <button id="iniciarBFS">Iniciar BFS</button>
+            <div id="resultadoBFS"></div>
+        </section>
+
+        <section>
+            <h2> La ruta más corta</h2>
+            <label for="verticeInicioRuta">Vértice de inicio:</label>
+            <input type="text" id="rutaInicio" placeholder="Lugar de inicio">
+            <label for="verticeFinalRuta">Vértice final:</label>
+            <input type="text" id="rutaFinal" placeholder="Lugar de destino">
+            <button id="iniciarDijkstra">Iniciar algoritmo</button>
+            <div id="resultadoRuta"></div>
+        </section></div>
+    </main>
+    <script type="module" src="/src/controllers/script.js"></script>
+</body>
+</html>
