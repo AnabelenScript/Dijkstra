@@ -28,7 +28,6 @@ class Grafo {
         return true;
     }
 
-
     obtenerIndiceVertice(vertice) {
         return this.vertices.indexOf(vertice);
     }
@@ -76,51 +75,54 @@ class Grafo {
         return resultado;
     }
 
-    dijkstra(verticeInicio, verticeFinal) {
-        let distancias = {};
-        let previos = {};
-        let cola = new Set(this.vertices);
-        for (let vertice of this.vertices) {
-            distancias[vertice] = Infinity;
-            previos[vertice] = null;
-        }
-        distancias[verticeInicio] = 0;
+    dijkstra(verticeInicio) {
+        const INF = 100000;
+        let l = []; 
+        let v = []; 
+        let lp = [];
+        let d = []; 
+        let dp = []; 
 
-        while (cola.size > 0) {
-            let verticeActual = null;
-            for (let vertice of cola) {
-                if (verticeActual === null || distancias[vertice] < distancias[verticeActual]) {
-                    verticeActual = vertice;
+        for (let i = 0; i < this.vertices.length; i++) {
+            v[i] = i;
+            lp[i] = v[i];
+            d[i] = INF;
+            dp[i] = INF;
+        }
+
+        let v1 = this.obtenerIndiceVertice(verticeInicio);
+        d[v1] = 0;
+        dp[v1] = 0; 
+
+        while (l.length != v.length) {
+            let min = INF;
+            let minIndex = -1;
+
+            for (let i = 0; i < v.length; i++) {
+                if (lp[i] !== null && dp[i] < min) {
+                    min = dp[i];
+                    minIndex = i;
                 }
             }
-            if (verticeActual === verticeFinal) {
-                break;
+            if (minIndex === -1) break; 
+            l.push(minIndex); 
+            lp[minIndex] = null;
+            for (let i = 0; i < v.length; i++) {
+                if (lp[i] !== null) {
+                    let alt = dp[minIndex] + this.listaAdyacencia[minIndex].find(({ vertice }) => vertice === this.obtenerVerticePorIndice(i))?.peso || INF;
+                    if (alt < dp[i]) {
+                        dp[i] = alt;
+                    }
+                }
             }
-
-            cola.delete(verticeActual);
-
-            let indiceActual = this.obtenerIndiceVertice(verticeActual);
-            for (let { vertice, peso } of this.listaAdyacencia[indiceActual]) {
-                let alt = distancias[verticeActual] + peso;
-                if (alt < distancias[vertice]) {
-                    distancias[vertice] = alt;
-                    previos[vertice] = verticeActual;
+            for (let i = 0; i < v.length; i++) {
+                if (d[i] === INF && dp[i] !== INF && dp[i] >= 0) {
+                    d[i] = dp[i];
                 }
             }
         }
-        let camino = [];
-        let u = verticeFinal;
-        while (previos[u] !== null) {
-            camino.unshift(u);
-            u = previos[u];
-        }
-        if (u === verticeInicio) {
-            camino.unshift(u);
-        }
-        return camino.length === 1 && camino[0] !== verticeInicio ? [] : camino;
+        return d;
     }
-    
-   
 }
 
 export default Grafo;
